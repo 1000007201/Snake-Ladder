@@ -51,19 +51,17 @@ def play(player):
     :return: player:Next position of player after rolling Dice.
     '''
     while player <= 100:
-        temp = player
         dice = diceRoll()
         if (player + dice) > 100:
             player += 0
         else:
             player += dice
-            temp = player
-            templadder = _ladder(temp)
+            templadder = _ladder(player)
             if templadder > player:
                 player = templadder
                 return player
             else:
-                tempsnake = _snake(temp)
+                tempsnake = _snake(player)
                 player = tempsnake
                 return player
 
@@ -72,15 +70,21 @@ def play(player):
 player1 = 0
 player2 = 0
 while True:
-    play1 = play(player1)
-    play2 = play(player2)
+    option = int(input("Enter value:\n1.Roll Dice\n2.Exit Game\n"))
+    if option == 1:
+        play1 = play(player1)
+        play2 = play(player2)
 
-    if win(play1) == -1:
-        print(f"1st Player Wins The Game!!!")
+        if win(play1) == -1:
+            print(f"1st Player Wins The Game!!!")
+            break
+        if win(play2) == -1:
+            print("2nd Player Wins The Game!!!")
+            break
+        print(f"Player 1 Position --> {play1}\nPlayer 2 Position --> {play2}")
+        player1 = play1
+        player2 = play2
+    elif option == 2:
         break
-    if win(play2) == -1:
-        print("2nd Player Wins The Game!!!")
-        break
-
-    player1 = play1
-    player2 = play2
+    else:
+        print("Please enter right value")
